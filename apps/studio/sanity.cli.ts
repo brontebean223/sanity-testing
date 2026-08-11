@@ -3,13 +3,11 @@ import {defineCliConfig} from 'sanity/cli'
 export default defineCliConfig({
   api: {
     projectId: 'rhhpqw8l',
-    dataset: 'production'
+    dataset: 'production',
   },
+  studioHost: 'solar-system-explorer-rhhpqw8l',
   deployment: {
-    /**
-     * Enable auto-updates for studios.
-     * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
-     */
+    appId: 'ut4pidb0i0yxynhx1brn0j76',
     autoUpdates: true,
   },
 })
