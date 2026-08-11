@@ -1,0 +1,12 @@
+{
+  "name": "sanity-testing",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix apps/studio",
+    "dev:studio": "npm run dev --prefix apps/studio",
+    "dev:web": "npm run dev --prefix apps/web",
+    "build:studio": "npm run build --prefix apps/studio",
+    "build:web": "npm run build --prefix apps/web",
+    "deploy:studio": "npm run deploy --prefix apps/studio"
+  }
+}
