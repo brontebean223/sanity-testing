@@ -1,0 +1,43 @@
+{
+  "_type": "celestialBody",
+  "name": "Sun",
+  "facts": [
+    {
+      "_type": "fact",
+      "_key": "type",
+      "label": "Type",
+      "value": "G-type main-sequence star (Yellow dwarf)"
+    },
+    {
+      "_type": "fact",
+      "_key": "diameter",
+      "label": "Diameter",
+      "value": "1,392,700 km"
+    },
+    {
+      "_type": "fact",
+      "_key": "mass",
+      "label": "Mass",
+      "value": "1.989 × 10^30 kg (333,000× Earth)"
+    },
+    {
+      "_type": "fact",
+      "_key": "surface-temperature",
+      "label": "Surface temperature",
+      "value": "5,500 °C (9,932 °F)"
+    },
+    {
+      "_type": "fact",
+      "_key": "age",
+      "label": "Age",
+      "value": "4.6 billion years"
+    },
+    {
+      "_type": "fact",
+      "_key": "composition",
+      "label": "Composition",
+      "value": "73% hydrogen, 25% helium, 2% heavier elements"
+    }
+  ],
+  "images": []
+}
