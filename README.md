@@ -32,7 +32,22 @@ cd apps/studio && npm run dev
 cd apps/web && npm run dev
 ```
 
+## Environment variables (frontend)
+
+Copy the example env file before running the web app locally:
+
+```bash
+cp apps/web/.env.example apps/web/.env
+```
+
 ## Deployments
 
 - **Studio:** https://solar-system-explorer-rhhpqw8l.sanity.studio/
-- **Frontend:** Vercel (see `apps/web/vercel.json`)
+- **Frontend:** https://sanity-testing-beta.vercel.app
+
+The repo root `vercel.json` tells Vercel to build `apps/web` (required for this monorepo layout). Vercel also needs these environment variables:
+
+| Variable | Value |
+|----------|-------|
+| `PUBLIC_SANITY_PROJECT_ID` | `rhhpqw8l` |
+| `PUBLIC_SANITY_DATASET` | `production` |
