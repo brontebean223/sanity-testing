@@ -5,8 +5,12 @@
     "dev": "npm run dev --prefix apps/studio",
     "dev:studio": "npm run dev --prefix apps/studio",
     "dev:web": "npm run dev --prefix apps/web",
+    "dev:web:sister": "npm run dev:sister --prefix apps/web",
+    "dev:web:both": "npx --yes concurrently -k -n harbor,light -c yellow,cyan \"npm run dev:web\" \"npm run dev:web:sister\"",
     "build:studio": "npm run build --prefix apps/studio",
     "build:web": "npm run build --prefix apps/web",
-    "deploy:studio": "npm run deploy --prefix apps/studio"
+    "build:web:sister": "PUBLIC_SITE_SLUG=harbor-light-inn npm run build --prefix apps/web",
+    "deploy:studio": "npm run deploy --prefix apps/studio",
+    "seed:multi-site": "npm exec --prefix apps/studio sanity exec scripts/seed-multi-site.ts --with-user-token"
   }
 }

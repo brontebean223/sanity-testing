@@ -1,24 +1,20 @@
+import blockContent from './test/blockContent'
 import businessListing from './test/businessListing'
+import site from './test/site'
 import ctaSection from './test/ctaSection'
 import event from './test/event'
+import featuresSection from './test/featuresSection'
 import hero from './test/hero'
 import page from './test/page'
 import textSection from './test/textSection'
-import celestialBody from './celestialBody'
-import fact from './fact'
-import mass from './mass'
-import solarSystem from './solarSystem'
 
 export const schemaTypes = [
-  // Solar system model
-  solarSystem,
-  celestialBody,
-  fact,
-  mass,
-  // Test model
+  site,
   page,
   hero,
+  blockContent,
   textSection,
+  featuresSection,
   ctaSection,
   event,
   businessListing,

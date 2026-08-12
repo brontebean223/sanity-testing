@@ -1,0 +1,39 @@
+---
+import type {Hero} from '../../lib/pages'
+import {cloudinaryAlt, cloudinaryImageUrl} from '../../lib/cloudinary'
+import {getTheme} from '../../themes'
+
+interface Props {
+  hero: Hero
+}
+
+const {hero} = Astro.props
+const theme = getTheme()
+const imageUrl = cloudinaryImageUrl(hero.image)
+const imageAlt = cloudinaryAlt(hero.image, hero.headline)
+---
+
+<section class={theme.hero.section}>
+  {
+    imageUrl ? (
+      <>
+        <img
+          src={imageUrl}
+          alt={imageAlt}
+          class="absolute inset-0 h-full w-full object-cover opacity-60"
+          loading="eager"
+          decoding="async"
+        />
+        <div class={theme.hero.imageOverlay} />
+      </>
+    ) : (
+      <div class={theme.hero.gradient} />
+    )
+  }
+
+  <div class="relative mx-auto max-w-5xl px-6 py-24 sm:py-32">
+    <p class={theme.hero.eyebrow}>{theme.heroEyebrow}</p>
+    <h1 class={theme.hero.headline}>{hero.headline}</h1>
+    {hero.subheadline && <p class={theme.hero.subheadline}>{hero.subheadline}</p>}
+  </div>
+</section>

@@ -12,6 +12,8 @@ const PUBLIC_SANITY_PROJECT_ID =
   process.env.PUBLIC_SANITY_PROJECT_ID ?? env.PUBLIC_SANITY_PROJECT_ID ?? 'rhhpqw8l'
 const PUBLIC_SANITY_DATASET =
   process.env.PUBLIC_SANITY_DATASET ?? env.PUBLIC_SANITY_DATASET ?? 'production'
+const PUBLIC_SITE_SLUG =
+  process.env.PUBLIC_SITE_SLUG ?? env.PUBLIC_SITE_SLUG ?? 'grand-harbor-hotel'
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,6 +23,7 @@ export default defineConfig({
     define: {
       'import.meta.env.PUBLIC_SANITY_PROJECT_ID': JSON.stringify(PUBLIC_SANITY_PROJECT_ID),
       'import.meta.env.PUBLIC_SANITY_DATASET': JSON.stringify(PUBLIC_SANITY_DATASET),
+      'import.meta.env.PUBLIC_SITE_SLUG': JSON.stringify(PUBLIC_SITE_SLUG),
     },
   },
 

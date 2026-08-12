@@ -1,0 +1,49 @@
+---
+import {PortableText} from 'astro-portabletext'
+import type {TextSection} from '../../lib/pages'
+import {getTheme} from '../../themes'
+
+interface Props {
+  section: TextSection
+}
+
+const {section} = Astro.props
+const theme = getTheme()
+---
+
+<section class="mx-auto max-w-5xl px-6 py-16">
+  {section.heading && <h2 class={theme.textSection.heading}>{section.heading}</h2>}
+  {
+    section.body && section.body.length > 0 && (
+      <div class={theme.textSection.body}>
+        <PortableText value={section.body}>
+          <fragment slot="block:normal">
+            <p class="leading-relaxed"><slot /></p>
+          </fragment>
+          <fragment slot="block:h3">
+            <h3 class={theme.textSection.h3}><slot /></h3>
+          </fragment>
+          <fragment slot="block:h4">
+            <h4 class={theme.textSection.h4}><slot /></h4>
+          </fragment>
+          <fragment slot="block:blockquote">
+            <blockquote class={theme.textSection.blockquote}>
+              <slot />
+            </blockquote>
+          </fragment>
+          <fragment slot="list:bullet">
+            <ul class="list-disc space-y-2 pl-5"><slot /></ul>
+          </fragment>
+          <fragment slot="list:number">
+            <ol class="list-decimal space-y-2 pl-5"><slot /></ol>
+          </fragment>
+          <fragment slot="mark:link">
+            <a class={theme.textSection.link}>
+              <slot />
+            </a>
+          </fragment>
+        </PortableText>
+      </div>
+    )
+  }
+</section>

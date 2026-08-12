@@ -1,0 +1,20 @@
+---
+import type {CtaSection} from '../../lib/pages'
+import {getTheme} from '../../themes'
+
+interface Props {
+  section: CtaSection
+}
+
+const {section} = Astro.props
+const theme = getTheme()
+---
+
+<section class="mx-auto max-w-5xl px-6 py-20 text-center">
+  <div class={theme.cta.panel}>
+    {section.text && <p class={theme.cta.text}>{section.text}</p>}
+    <a href={section.url} class={theme.cta.button}>
+      {section.label}
+    </a>
+  </div>
+</section>

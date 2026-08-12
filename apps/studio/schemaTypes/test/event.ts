@@ -24,6 +24,14 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'sites',
+      title: 'Show on hotels',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'site'}]}],
+      description:
+        'Pick one or both hotels. The same event appears on each selected hotel site without duplicating content.',
+    }),
+    defineField({
       name: 'startDate',
       title: 'Start date',
       type: 'datetime',
@@ -51,12 +59,15 @@ export default defineType({
       title: 'title',
       startDate: 'startDate',
       location: 'location',
+      sites: 'sites',
     },
-    prepare({title, startDate, location}) {
+    prepare({title, startDate, location, sites}) {
       const date = startDate ? new Date(startDate).toLocaleDateString() : 'No date'
+      const hotels =
+        Array.isArray(sites) && sites.length > 0 ? `${sites.length} hotel(s)` : 'All hotels'
       return {
         title,
-        subtitle: [date, location].filter(Boolean).join(' · '),
+        subtitle: [date, hotels, location].filter(Boolean).join(' · '),
       }
     },
   },

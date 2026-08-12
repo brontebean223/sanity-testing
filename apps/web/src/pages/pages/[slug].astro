@@ -1,0 +1,28 @@
+---
+import Hero from '../../components/blocks/Hero.astro'
+import PageSections from '../../components/blocks/PageSections.astro'
+import SharedContent from '../../components/blocks/SharedContent.astro'
+import SiteLayout from '../../layouts/site.astro'
+import {getPageBySlug, getPageSlugs} from '../../lib/pages'
+import {getEventsForSite, getListingsForSite} from '../../lib/shared-content'
+
+export async function getStaticPaths() {
+  const slugs = await getPageSlugs()
+  return slugs.filter((entry: {params: {slug: string}}) => entry.params.slug !== 'home')
+}
+
+const {slug} = Astro.params
+const page = await getPageBySlug(slug!)
+const events = await getEventsForSite()
+const listings = await getListingsForSite()
+
+if (!page) {
+  throw new Error(`Page not found: ${slug}`)
+}
+---
+
+<SiteLayout title={page.title} description={page.hero.subheadline}>
+  <Hero hero={page.hero} />
+  <PageSections sections={page.sections} />
+  <SharedContent {events} {listings} />
+</SiteLayout>

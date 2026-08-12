@@ -1,0 +1,31 @@
+---
+import type {FeaturesSection} from '../../lib/pages'
+import {getTheme} from '../../themes'
+
+interface Props {
+  section: FeaturesSection
+}
+
+const {section} = Astro.props
+const theme = getTheme()
+---
+
+<section class={theme.features.section}>
+  <div class="mx-auto max-w-5xl px-6">
+    {section.heading && <h2 class={theme.features.heading}>{section.heading}</h2>}
+    {
+      section.items && section.items.length > 0 && (
+        <ul class="grid gap-8 sm:grid-cols-2">
+          {
+            section.items.map((item) => (
+              <li class={theme.features.card}>
+                <h3 class={theme.features.cardTitle}>{item.title}</h3>
+                {item.description && <p class={theme.features.cardBody}>{item.description}</p>}
+              </li>
+            ))
+          }
+        </ul>
+      )
+    }
+  </div>
+</section>

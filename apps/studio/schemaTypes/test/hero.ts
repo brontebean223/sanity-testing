@@ -21,28 +21,21 @@ export default defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
-      type: 'image',
-      options: {hotspot: true},
-      fields: [
-        defineField({
-          name: 'alt',
-          title: 'Alternative text',
-          type: 'string',
-        }),
-      ],
+      title: 'Hero image',
+      type: 'cloudinary.asset',
+      description: 'Pick from Cloudinary. Add alt text in the Cloudinary media library.',
     }),
   ],
   preview: {
     select: {
       title: 'headline',
-      media: 'image',
+      imageUrl: 'image.secure_url',
     },
-    prepare({title, media}) {
+    prepare({title, imageUrl}) {
       return {
         title: title || 'Hero',
         subtitle: 'Hero',
-        media,
+        media: imageUrl ? {url: imageUrl} : undefined,
       }
     },
   },

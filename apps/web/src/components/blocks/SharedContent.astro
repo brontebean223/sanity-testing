@@ -1,0 +1,63 @@
+---
+import type {SharedEvent, SharedListing} from '../../lib/shared-content'
+import {getTheme} from '../../themes'
+
+interface Props {
+  events: SharedEvent[]
+  listings: SharedListing[]
+}
+
+const {events, listings} = Astro.props
+const theme = getTheme()
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+}
+---
+
+<section class={theme.shared.section}>
+  <div class="mx-auto max-w-5xl">
+    <p class={theme.shared.label}>Shared content · same CMS, both hotels</p>
+
+    {
+      events.length > 0 && (
+        <div class="mb-14">
+          <h2 class={theme.shared.heading}>Events</h2>
+          <ul class="grid gap-4 md:grid-cols-2">
+            {events.map((event) => (
+              <li class={theme.shared.card}>
+                <h3 class={theme.shared.cardTitle}>{event.title}</h3>
+                <p class={theme.shared.cardMeta}>
+                  {formatDate(event.startDate)}
+                  {event.location ? ` · ${event.location}` : ''}
+                </p>
+                {event.description && <p class={theme.shared.cardBody}>{event.description}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      listings.length > 0 && (
+        <div>
+          <h2 class={theme.shared.heading}>Local listings</h2>
+          <ul class="grid gap-4 md:grid-cols-2">
+            {listings.map((listing) => (
+              <li class={theme.shared.card}>
+                <h3 class={theme.shared.cardTitle}>{listing.name}</h3>
+                {listing.address?.city && <p class={theme.shared.cardMeta}>{listing.address.city}</p>}
+                {listing.description && <p class={theme.shared.cardBody}>{listing.description}</p>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</section>

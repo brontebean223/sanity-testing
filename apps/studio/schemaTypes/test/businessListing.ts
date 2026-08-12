@@ -24,6 +24,14 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'sites',
+      title: 'Show on hotels',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'site'}]}],
+      description:
+        'Pick one or both hotels. The same listing appears on each selected hotel site without duplicating content.',
+    }),
+    defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
@@ -53,11 +61,16 @@ export default defineType({
     select: {
       title: 'name',
       city: 'address.city',
+      description: 'description',
+      sites: 'sites',
     },
-    prepare({title, city}) {
+    prepare({title, city, description, sites}) {
+      const hotels =
+        Array.isArray(sites) && sites.length > 0 ? `${sites.length} hotel(s)` : 'All hotels'
+      const excerpt = description ? description.slice(0, 50) + (description.length > 50 ? '…' : '') : ''
       return {
         title,
-        subtitle: city ? `Business · ${city}` : 'Business listing',
+        subtitle: [hotels, city, excerpt].filter(Boolean).join(' · '),
       }
     },
   },

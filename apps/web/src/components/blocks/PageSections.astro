@@ -1,0 +1,27 @@
+---
+import type {PageSection} from '../../lib/pages'
+import CtaSection from './CtaSection.astro'
+import FeaturesSection from './FeaturesSection.astro'
+import TextSection from './TextSection.astro'
+
+interface Props {
+  sections?: PageSection[]
+}
+
+const {sections = []} = Astro.props
+---
+
+{
+  sections.map((section) => {
+    switch (section._type) {
+      case 'textSection':
+        return <TextSection section={section} />
+      case 'featuresSection':
+        return <FeaturesSection section={section} />
+      case 'ctaSection':
+        return <CtaSection section={section} />
+      default:
+        return null
+    }
+  })
+}

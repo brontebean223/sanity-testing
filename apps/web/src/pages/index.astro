@@ -1,89 +1,24 @@
 ---
-import CelestialBodyCard from '../components/CelestialBodyCard.astro'
-import Layout from '../layouts/main.astro'
-import {formatBodyType, getCelestialBodies} from '../lib/sanity'
+import Hero from '../components/blocks/Hero.astro'
+import PageSections from '../components/blocks/PageSections.astro'
+import SharedContent from '../components/blocks/SharedContent.astro'
+import SiteLayout from '../layouts/site.astro'
+import {getHomePage} from '../lib/pages'
+import {getEventsForSite, getListingsForSite} from '../lib/shared-content'
+import {getSiteBrand} from '../lib/site'
 
-const bodies = await getCelestialBodies()
+const brand = getSiteBrand()
+const page = await getHomePage()
+const events = await getEventsForSite()
+const listings = await getListingsForSite()
 
-const stars = bodies.filter((body) => body.bodyType === 'star')
-const planets = bodies.filter((body) => body.bodyType === 'planet')
-const moons = bodies.filter((body) => body.bodyType === 'moon')
-const other = bodies.filter(
-  (body) => !['star', 'planet', 'moon'].includes(body.bodyType),
-)
+if (!page) {
+  throw new Error(`Home page not found for site: ${brand.slug}`)
+}
 ---
 
-<Layout>
-  <main class="mx-auto max-w-7xl px-6 py-12 lg:px-8 lg:py-16">
-    <header class="mx-auto mb-12 max-w-3xl text-center">
-      <p class="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-indigo-400">
-        Content from Sanity
-      </p>
-      <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl">Solar System Explorer</h1>
-      <p class="mt-4 text-lg text-slate-400">
-        Explore facts and images about the celestial bodies in our solar system.
-      </p>
-      <p class="mt-2 text-sm text-slate-500">{bodies.length} bodies loaded from the CMS</p>
-    </header>
-
-    {
-      stars.length > 0 && (
-        <section class="mb-12">
-          <div class="mb-6 flex items-end justify-between gap-4">
-            <div>
-              <h2 class="text-2xl font-semibold text-white">Star</h2>
-              <p class="text-sm text-slate-400">The center of our solar system</p>
-            </div>
-          </div>
-          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {stars.map((body) => <CelestialBodyCard body={body} />)}
-          </div>
-        </section>
-      )
-    }
-
-    {
-      planets.length > 0 && (
-        <section class="mb-12">
-          <div class="mb-6">
-            <h2 class="text-2xl font-semibold text-white">Planets</h2>
-            <p class="text-sm text-slate-400">The eight major planets orbiting the Sun</p>
-          </div>
-          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {planets.map((body) => <CelestialBodyCard body={body} />)}
-          </div>
-        </section>
-      )
-    }
-
-    {
-      moons.length > 0 && (
-        <section class="mb-12">
-          <div class="mb-6">
-            <h2 class="text-2xl font-semibold text-white">Moons</h2>
-            <p class="text-sm text-slate-400">Natural satellites orbiting planets</p>
-          </div>
-          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {moons.map((body) => <CelestialBodyCard body={body} />)}
-          </div>
-        </section>
-      )
-    }
-
-    {
-      other.length > 0 && (
-        <section>
-          <div class="mb-6">
-            <h2 class="text-2xl font-semibold text-white">Other bodies</h2>
-            <p class="text-sm text-slate-400">
-              {other.map((body) => formatBodyType(body.bodyType)).join(', ')}
-            </p>
-          </div>
-          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {other.map((body) => <CelestialBodyCard body={body} />)}
-          </div>
-        </section>
-      )
-    }
-  </main>
-</Layout>
+<SiteLayout title={page.title} description={page.hero.subheadline}>
+  <Hero hero={page.hero} />
+  <PageSections sections={page.sections} />
+  <SharedContent {events} {listings} />
+</SiteLayout>

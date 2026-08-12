@@ -1,0 +1,35 @@
+---
+import '../styles/global.css'
+import {getSiteBrand} from '../lib/site'
+import {getTheme} from '../themes'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const {title, description = ''} = Astro.props
+const brand = getSiteBrand()
+const theme = getTheme()
+---
+
+<html lang="en" data-theme={theme.id}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class={theme.layout.body}>
+    <header class={theme.layout.header}>
+      <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+        <a href="/" class={theme.layout.headerLink}>{brand.name}</a>
+      </nav>
+    </header>
+    <slot />
+    <footer class={theme.layout.footer}>{brand.name}</footer>
+  </body>
+</html>
